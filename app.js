@@ -170,7 +170,8 @@ function saveAccountProfile(acc,p){const all=profileStore();all[acc.id]=p;savePr
 function isPaidPlan(){return document.querySelector('input[name="publishPlan"]:checked')?.value==='premium'}
 
 const RULES_ACCEPT_KEY='souk_internal_rules_acceptance_v3_session';
-function platformRulesAccepted(){return sessionStorage.getItem(RULES_ACCEPT_KEY)==='accepted'}
+const RULES_ACCEPT_LOCAL_KEY='souk_internal_rules_acceptance_v3';
+function platformRulesAccepted(){try{return sessionStorage.getItem(RULES_ACCEPT_KEY)==='accepted'||localStorage.getItem(RULES_ACCEPT_LOCAL_KEY)==='accepted'}catch{return false}}
 function mountPlatformGate(){
   if(document.body?.classList.contains('admin-page')||document.getElementById('platformGate'))return;
   if(platformRulesAccepted())return;
@@ -185,7 +186,10 @@ function mountPlatformGate(){
   enter.addEventListener('click',()=>{
     if(!check.checked){check.focus();return;}
     try{sessionStorage.setItem(RULES_ACCEPT_KEY,'accepted');}catch(e){console.warn('تعذر حفظ الموافقة في الجلسة',e)}
+    try{localStorage.setItem(RULES_ACCEPT_LOCAL_KEY,'accepted');}catch(e){console.warn('تعذر حفظ الموافقة على هذا الجهاز',e)}
+    // أعد تحميل الصفحة الرئيسية بعد الموافقة لضمان اختفاء نافذة الدخول وظهور محتوى المنصة.
     box.remove();document.body.classList.remove('rules-gate-open');
+    window.location.replace('index.html');
   });
   document.body.classList.add('rules-gate-open');
   syncGateButton();
