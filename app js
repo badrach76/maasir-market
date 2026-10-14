@@ -1,0 +1,39 @@
+document.addEventListener('DOMContentLoaded', () => {
+    // تفعيل مرشح التصنيفات في صفحة المستجدات المهنية
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const newsCards = document.querySelectorAll('.news-card');
+
+    if (filterButtons.length > 0) {
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const filter = btn.getAttribute('data-filter');
+
+                newsCards.forEach(card => {
+                    if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+    }
+
+    // إدارة نموذج الإضافة في لوحة التحكم
+    const addNewsForm = document.getElementById('addNewsForm');
+    if (addNewsForm) {
+        addNewsForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const title = document.getElementById('newsTitle').value;
+            const category = document.getElementById('newsCategory').value;
+            const content = document.getElementById('newsContent').value;
+
+            // يمكنك ربط هذه البيانات لاحقاً بقاعدة بيانات Supabase
+            alert('تم نشر الخبر بنجاح وإضافته إلى قائمة المستجدات المهنية!');
+            addNewsForm.reset();
+        });
+    }
+});
