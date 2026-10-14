@@ -174,13 +174,21 @@ function platformRulesAccepted(){return sessionStorage.getItem(RULES_ACCEPT_KEY)
 function mountPlatformGate(){
   if(document.body?.classList.contains('admin-page')||document.getElementById('platformGate'))return;
   if(platformRulesAccepted())return;
-  const box=document.createElement('div');box.id='platformGate';box.className='platform-gate';box.innerHTML=`<div class="platform-gate-box" role="dialog" aria-modal="true" aria-labelledby="gateTitle"><div class="platform-gate-head"><img class="platform-gate-logo" src="logoSAM.png" alt="MAASSIR MARKET"><div><span class="eyebrow">سوق معاصر المغرب · MAASSIR MARKET</span><h2 id="gateTitle">الموافقة على القانون الداخلي</h2><p>يرجى قراءة القانون الداخلي والموافقة عليه قبل ولوج المنصة واستعمال خدماتها.</p></div></div><div class="law-content" id="platformLawContent"><p><b>سوق أرباب المعاصر – البيع والشراء</b> فضاء مهني مخصص لنشر عروض وطلبات البيع والشراء في مجال زيت الزيتون ومعدات وتجهيزات المعاصر.</p>${tr('lawBody')}</div><label class="gate-agree"><input id="platformGateAgree" type="checkbox" disabled><span>أوافق على القانون الداخلي، وأقر بأنني مسؤول عن صحة معلومات إعلاني وعن معاملتي مع الطرف الآخر، وأن المنصة ليست طرفاً في المعاملة ولا تضمن إتمامها.</span></label><div class="gate-actions"><button id="platformGateEnter" class="btn primary" type="button" disabled>أوافق وأدخل إلى المنصة</button></div></div>`;
+  const box=document.createElement('div');box.id='platformGate';box.className='platform-gate';box.innerHTML=`<div class="platform-gate-box" role="dialog" aria-modal="true" aria-labelledby="gateTitle"><div class="platform-gate-head"><img class="platform-gate-logo" src="logoSAM.png" alt="MAASSIR MARKET"><div><span class="eyebrow">سوق معاصر المغرب · MAASSIR MARKET</span><h2 id="gateTitle">الموافقة على القانون الداخلي</h2><p>يرجى قراءة القانون الداخلي والموافقة عليه قبل ولوج المنصة واستعمال خدماتها.</p></div></div><div class="law-content" id="platformLawContent"><p><b>سوق أرباب المعاصر – البيع والشراء</b> فضاء مهني مخصص لنشر عروض وطلبات البيع والشراء في مجال زيت الزيتون ومعدات وتجهيزات المعاصر.</p>${tr('lawBody')}</div><label class="gate-agree" for="platformGateAgree"><input id="platformGateAgree" type="checkbox"><span>أوافق على القانون الداخلي، وأقر بأنني مسؤول عن صحة معلومات إعلاني وعن معاملتي مع الطرف الآخر، وأن المنصة ليست طرفاً في المعاملة ولا تضمن إتمامها.</span></label><div class="gate-actions"><button id="platformGateEnter" class="btn primary" type="button" disabled>أوافق وأدخل إلى المنصة</button></div></div>`;
   document.body.appendChild(box);
   setLang(lang(),false);
-  const law=box.querySelector('#platformLawContent'),check=box.querySelector('#platformGateAgree'),enter=box.querySelector('#platformGateEnter');
-  const enableAgreement=()=>{if(law.scrollTop+law.clientHeight>=law.scrollHeight-8)check.disabled=false};law.addEventListener('scroll',enableAgreement);enableAgreement();
-  check.addEventListener('change',()=>{enter.disabled=!check.checked});
-  enter.addEventListener('click',()=>{if(!check.checked)return;sessionStorage.setItem(RULES_ACCEPT_KEY,'accepted');box.remove()});
+  const check=box.querySelector('#platformGateAgree'),enter=box.querySelector('#platformGateEnter');
+  // لا نربط تفعيل الموافقة بتمرير شريط القانون؛ فهذا كان يعطّل الزر على بعض الهواتف.
+  const syncGateButton=()=>{enter.disabled=!check.checked;enter.setAttribute('aria-disabled',String(!check.checked))};
+  check.addEventListener('change',syncGateButton);
+  check.addEventListener('input',syncGateButton);
+  enter.addEventListener('click',()=>{
+    if(!check.checked){check.focus();return;}
+    try{sessionStorage.setItem(RULES_ACCEPT_KEY,'accepted');}catch(e){console.warn('تعذر حفظ الموافقة في الجلسة',e)}
+    box.remove();document.body.classList.remove('rules-gate-open');
+  });
+  document.body.classList.add('rules-gate-open');
+  syncGateButton();
 }
 
 function mountGlobalHeader(){
