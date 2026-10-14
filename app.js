@@ -197,9 +197,9 @@ function mountPlatformGate(){
     if(!check.checked){check.focus();return;}
     try{sessionStorage.setItem(RULES_ACCEPT_KEY,'accepted');}catch(e){console.warn('تعذر حفظ الموافقة في الجلسة',e)}
     try{localStorage.setItem(RULES_ACCEPT_LOCAL_KEY,'accepted');}catch(e){console.warn('تعذر حفظ الموافقة على هذا الجهاز',e)}
-    // أعد تحميل الصفحة الرئيسية بعد الموافقة لضمان اختفاء نافذة الدخول وظهور محتوى المنصة.
+    // أغلق نافذة الموافقة دون إعادة توجيه أو إعادة تحميل؛ فهذا يمنع تعطل الدخول عند النشر داخل مسار فرعي.
     box.remove();document.body.classList.remove('rules-gate-open');
-    window.location.replace('index.html');
+    document.body.style.overflow='';
   });
   document.body.classList.add('rules-gate-open');
   syncGateButton();
