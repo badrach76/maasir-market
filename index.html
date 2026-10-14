@@ -1,76 +1,82 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سوق معاصر المغرب | Maassir Market</title>
-    <link rel="stylesheet" href="styles.css">
-    <!-- مكتبة الأيقونات والخطوط -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>سوق معاصر المغرب | MAASSIR MARKET</title>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- رأس الصفحة -->
-    <header class="main-header">
-        <div class="container header-container">
-            <div class="logo-area">
-                <h1 class="logo-title">سوق معاصر المغرب</h1>
-                <span class="logo-subtitle">Maassir Market</span>
-            </div>
-            <nav class="main-nav">
-                <ul class="nav-links">
-                    <li><a href="index.html" class="active"><i class="fas fa-home"></i> الرئيسية</a></li>
-                    <li><a href="professional.html"><i class="fas fa-newspaper"></i> المستجدات المهنية</a></li>
-                    <li><a href="admin.html"><i class="fas fa-user-shield"></i> لوحة الإدارة</a></li>
-                </ul>
-            </nav>
-            <div class="mobile-menu-toggle">
-                <i class="fas fa-bars"></i>
-            </div>
+<header class="topbar">
+  <div class="wrap nav">
+    <a class="brand-logo-only" href="index.html">
+      <img src="logoSAM.png" alt="MAASSIR MARKET">
+    </a>
+    <nav class="global-links navlinks">
+      <a class="active" href="index.html">الرئيسية</a>
+      <a href="search.html">السوق</a>
+      <a href="directory.html">دليل المعاصر</a>
+      <a href="profile.html">الملف المهني</a>
+      <a href="onssa-services.html">خدمات ONSSA</a>
+    </nav>
+    <div class="global-actions">
+      <select class="language-select" id="languageSelect">
+        <option value="ar" selected>العربية</option>
+        <option value="fr">Français</option>
+        <option value="en">English</option>
+      </select>
+      <a class="btn light" href="profile.html" id="gProfile">حسابي</a>
+      <a class="btn primary" href="publish.html" id="gPublish">＋ نشر إعلان</a>
+      <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+    </div>
+  </div>
+</header>
+<!-- القائمة المنسدلة للهاتف -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">الرئيسية</a>
+  <a href="search.html">السوق</a>
+  <a href="directory.html">دليل المعاصر</a>
+  <a href="profile.html">الملف المهني</a>
+  <a href="onssa-services.html">خدمات ONSSA</a>
+  <a href="publish.html">نشر إعلان</a>
+</div>
+
+<!-- تكرار شريط الأسعار والمستجدات -->
+<section class="market-ticker">
+  <div class="wrap ticker-wrap">
+    <div class="ticker-label"><span class="ticker-dot"></span><b>مؤشرات الأسعار</b><small id="tickerUpdated">مرجعي</small></div>
+    <div class="ticker-track">
+      <div class="ticker-marquee" id="priceTicker"></div>
+    </div>
+  </div>
+</section>
+
+<main class="wrap">
+  <!-- المحتوى الرئيسي للمنصة -->
+  <section class="hero hero-v5">
+    <div class="hero-v5-inner">
+      <div class="hero-copy">
+        <span class="eyebrow">المنصة المهنية الوطنية</span>
+        <h1>سوق معاصر المغرب <em>MAASSIR MARKET</em></h1>
+        <p>التنسيق الجهوي، تتبع أسعار وعروض زيت الزيتون، مواكبة معايير السلامة الصحية ONSSA، والتواصل المباشر بين أرباب المعاصر والمهنيين.</p>
+        <div class="hero-actions">
+          <a class="btn primary btn-lg" href="search.html">تصفح السوق والطلبات ←</a>
+          <a class="btn light btn-lg" href="directory.html">دليل المعاصر والمسوقين</a>
         </div>
-    </header>
+      </div>
+      <div class="hero-visual">
+        <div class="visual-ring"></div>
+        <img src="logoSAM.png" alt="MAASSIR MARKET">
+      </div>
+    </div>
+  </section>
+</main>
 
-    <!-- المحتوى الرئيسي -->
-    <main class="main-content">
-        <section class="hero-section">
-            <div class="container hero-content">
-                <h2>المنصة الوطنية الموحدة لأرباب المعاصر وتسويق زيت الزيتون بالمغرب</h2>
-                <p>تنظيم القطاع، تسهيل التنسيق الجهوي، متابعة معايير السلامة الصحية ONSSA، والاطلاع على المستجدات المهنية.</p>
-                <div class="hero-buttons">
-                    <a href="professional.html" class="btn btn-primary"><i class="fas fa-bullhorn"></i> تصفح المستجدات المهنية</a>
-                    <a href="admin.html" class="btn btn-secondary"><i class="fas fa-cog"></i> فضاء الإدارة</a>
-                </div>
-            </div>
-        </section>
-
-        <section class="features-section container">
-            <h3>خدمات المنصة</h3>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <i class="fas fa-industry"></i>
-                    <h4>دليل المعاصر</h4>
-                    <p>إحصائيات وتصنيف وحدات إنتاج زيت الزيتون حسب الجهات والأقاليم.</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fas fa-file-alt"></i>
-                    <h4>القوانين والتراخيص</h4>
-                    <p>مواكبة شروط السلامة الصحية ومساطر الاعتماد لدى ONSSA.</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fas fa-share-alt"></i>
-                    <h4>التواصل المهني</h4>
-                    <p>شبكات ربط سريعة وتنسيق جهوي عبر وسائط التواصل الحديثة.</p>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- تذييل الصفحة -->
-    <footer class="main-footer">
-        <div class="container footer-content">
-            <p>&copy; 2026 سوق معاصر المغرب (Maassir Market). جميع الحقوق محفوظة.</p>
-        </div>
-    </footer>
-
-    <script src="app.js"></script>
+<footer class="footer">
+  <div class="wrap foot">
+    <div><b>سوق معاصر المغرب · MAASSIR MARKET</b><br><small>فضاء مهني متخصص لقطاع الزيتون والمعدات.</small></div>
+  </div>
+</footer>
+<script src="app.js"></script>
 </body>
 </html>
